@@ -1,0 +1,7 @@
+pandas
+numpy
+scikit-learn
+onnxruntime
+joblib
+streamlit
+Image
