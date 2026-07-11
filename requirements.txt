@@ -5,3 +5,8 @@ onnxruntime
 joblib
 streamlit
 Image
+openpyxl
+ee
+geopy
+fastapi
+uvicorn
