@@ -9,4 +9,5 @@ openpyxl
 ee
 geopy
 fastapi
-uvicorn
+uvicorn3
+tensorflow
