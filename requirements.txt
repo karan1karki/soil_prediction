@@ -4,7 +4,7 @@ scikit-learn
 onnxruntime
 joblib
 streamlit
-Image
+Pillow
 openpyxl
 earthengine-api
 geopy
