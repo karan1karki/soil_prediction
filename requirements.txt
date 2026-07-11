@@ -10,4 +10,4 @@ ee
 geopy
 fastapi
 uvicorn3
-tensorflow
+tensorflow==2.21.0
