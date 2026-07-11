@@ -9,5 +9,5 @@ openpyxl
 ee
 geopy
 fastapi
-uvicorn3
+uvicorn
 tensorflow==2.21.0
