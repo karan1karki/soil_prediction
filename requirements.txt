@@ -6,8 +6,8 @@ joblib
 streamlit
 Image
 openpyxl
-ee
+earthengine-api
 geopy
 fastapi
 uvicorn
-tensorflow==2.21.0
+tensorflow
