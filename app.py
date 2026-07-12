@@ -19,7 +19,7 @@ secret_creds = st.secrets["gcp_service_account"]
 # Create the Earth Engine credentials object
 credentials = ee.ServiceAccountCredentials(
     secret_creds["client_email"], 
-    secret_creds["private_key"]
+    key_data = secret_creds["private_key"]
 )
 
 # Initialize Earth Engine with the service account credentials
