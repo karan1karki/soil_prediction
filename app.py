@@ -13,6 +13,17 @@ st.set_page_config(page_title="AgriSmart Analytics Portal", layout="wide", page_
 # -------------------------------------------------------------
 # 1. GLOBAL INITIALIZATION & MODEL LOADING
 # -------------------------------------------------------------
+# Extract credentials from Streamlit Secrets
+secret_creds = st.secrets["gcp_service_account"]
+
+# Create the Earth Engine credentials object
+credentials = ee.ServiceAccountCredentials(
+    secret_creds["client_email"], 
+    secret_creds["private_key"]
+)
+
+# Initialize Earth Engine with the service account credentials
+ee.Initialize(credentials=credentials, project=GCP_PROJECT_ID)
 GCP_PROJECT_ID = 'agrismart-498704'
 
 @st.cache_resource
