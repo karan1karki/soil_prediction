@@ -23,7 +23,6 @@ credentials = ee.ServiceAccountCredentials(
 )
 
 # Initialize Earth Engine with the service account credentials
-ee.Initialize(credentials=credentials, project=GCP_PROJECT_ID)
 GCP_PROJECT_ID = 'agrismart-498704'
 
 @st.cache_resource
@@ -31,7 +30,7 @@ def initialize_systems():
     # Initialize Earth Engine
     try:
         ee.Authenticate()
-        ee.Initialize(project=GCP_PROJECT_ID)
+        ee.Initialize(credentials=credentials, project=GCP_PROJECT_ID)
     except Exception as e:
         st.warning(f"⚠️ Earth Engine initialization warning: {e}")
     
