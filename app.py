@@ -165,10 +165,10 @@ with tab1:
                     c1.metric("Nitrogen (N)", f"{metrics['N']} mg/kg")
                     c2.metric("Phosphorus (P)", f"{metrics['P']} mg/kg")
                     c3.metric("Potassium (K)", f"{metrics['K']} mg/kg")
-                    c4.metrics("Temperature", f"{metrics['temperature']}")
-                    c5.metrics("Humidity", f"{metrics['humidity']}")
-                    c6.metrics("PH_Level", f"{metrics['ph']}")
-                    c7.metrics("Rainfall", f"{metrics['rainfall']}")
+                    c4.metric("Temperature", f"{metrics['temperature']}")
+                    c5.metric("Humidity", f"{metrics['humidity']}")
+                    c6.metric("PH_Level", f"{metrics['ph']}")
+                    c7.metric("Rainfall", f"{metrics['rainfall']}")
                     
                     # Make Prediction
                     if crop_model is not None:
