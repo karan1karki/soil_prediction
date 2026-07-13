@@ -161,7 +161,7 @@ with tab1:
                     st.success(f"📍 Mapped to Coordinates: {lat:.4f}, {lon:.4f}")
                     
                     # Display Metrics
-                    c1, c2, c3 = st.columns(3)
+                    c1, c2, c3 , c4, c5, c6, c7= st.columns(7)
                     c1.metric("Nitrogen (N)", f"{metrics['N']} mg/kg")
                     c2.metric("Phosphorus (P)", f"{metrics['P']} mg/kg")
                     c3.metric("Potassium (K)", f"{metrics['K']} mg/kg")
