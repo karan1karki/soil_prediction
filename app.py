@@ -127,10 +127,10 @@ def fetch_satellite_metrics(lat: float, lon: float):
     except Exception:
         rainfall = 145.0
 
-    # 6. Phosphorus (P) & Potassium (K) Baselines 🧪
-    # Since these are unavailable via satellite, we map them to regional agricultural averages
-    phosphorus = 42
-    potassium = 38
+        # 6. Phosphorus (P) & Potassium (K) Baselines 🧪
+        # Since these are unavailable via satellite, we map them to regional agricultural averages
+        phosphorus = 42
+        potassium = 38
 
     return {
         "N": nitrogen, 
@@ -168,6 +168,10 @@ with tab1:
                     c1.metric("Nitrogen (N)", f"{metrics['N']} mg/kg")
                     c2.metric("Phosphorus (P)", f"{metrics['P']} mg/kg")
                     c3.metric("Potassium (K)", f"{metrics['K']} mg/kg")
+                    c4.metrics("Temperature", f"{metrics['temperature']}")
+                    c5.metrics("Humidity", f"{metrics['humidity']}")
+                    c6.metrics("PH_Level", f"{metrics['ph']}")
+                    c7.metrics("Rainfall", f"{metrics['rainfall']}")
                     
                     # Make Prediction
                     if crop_model is not None:
