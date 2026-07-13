@@ -126,16 +126,13 @@ def fetch_satellite_metrics(lat: float, lon: float):
         rainfall = round(rain_val, 1) if rain_val else 150.0
     except Exception:
         rainfall = 145.0
-
-        # 6. Phosphorus (P) & Potassium (K) Baselines 🧪
-        # Since these are unavailable via satellite, we map them to regional agricultural averages
         phosphorus = 42
         potassium = 38
 
     return {
         "N": nitrogen, 
-        "P": phosphorus, 
-        "K": potassium,
+        "P": 42, 
+        "K": 38,
         "temperature": temperature, 
         "humidity": soil_moisture + 20, # Map moisture to relative humidity scale
         "ph": ph, 
