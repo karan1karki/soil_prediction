@@ -40,7 +40,7 @@ def initialize_systems():
             )
             ee.Initialize(credentials=credentials, project=GCP_PROJECT_ID)
             st.success("✅ Earth Engine successfully initialized!")
-        except Exception as e:
+    except Exception as e:
             st.error(f"❌ Earth Engine initialization failed: {e}")
         # Load Leaf CNN Model
     try:
