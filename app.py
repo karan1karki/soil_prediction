@@ -29,12 +29,20 @@ GCP_PROJECT_ID = 'agrismart-498704'
 def initialize_systems():
     # Initialize Earth Engine
     try:
-        ee.Authenticate()
-        ee.Initialize(credentials=credentials, project=GCP_PROJECT_ID)
-    except Exception as e:
-        st.warning(f"⚠️ Earth Engine initialization warning: {e}")
-    
-    # Load Leaf CNN Model
+            secret_creds = st.secrets["gcp_service_account"]
+            
+            # Clean up newline characters if they got escaped
+            private_key = secret_creds["private_key"].replace("\\n", "\n")
+            
+            credentials = ee.ServiceAccountCredentials(
+                secret_creds["client_email"], 
+                key_data=private_key
+            )
+            ee.Initialize(credentials=credentials, project=GCP_PROJECT_ID)
+            st.success("✅ Earth Engine successfully initialized!")
+        except Exception as e:
+            st.error(f"❌ Earth Engine initialization failed: {e}")
+        # Load Leaf CNN Model
     try:
         leaf_model = tf.keras.models.load_model('rice_leaf_cnn_model.h5')
     except Exception:
