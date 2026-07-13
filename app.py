@@ -180,16 +180,15 @@ if st.button("Analyze Location & Recommend"):
         image = Image.open(uploaded_file)
         st.image(image, caption="Uploaded Leaf Profile", width=300)
         
-        if st.button("Run AI Diagnostics"):
-            with st.spinner("Running CNN classification..."):
-                if leaf_model is not None:
-                    resized_image = image.convert('RGB').resize((224, 224))
-                    img_tensor = np.expand_dims(np.asarray(resized_image) / 255.0, axis=0)
-                    predictions = leaf_model.predict(img_tensor)[0]
-                    max_idx = np.argmax(predictions)
-                    
-                    st.success(f"Diagnosis: **{RICE_CLASSES[max_idx]}**")
-                    st.info(f"Confidence Level: {float(predictions[max_idx])*100:.2f}%")
-                else:
-                    st.warning("Running in simulation mode.")
-                    st.success("Diagnosis: **Brown Spot** (Simulation Confidence: 92.0%)")
+        with st.spinner("Running CNN classification..."):
+            if leaf_model is not None:
+                resized_image = image.convert('RGB').resize((224, 224))
+                img_tensor = np.expand_dims(np.asarray(resized_image) / 255.0, axis=0)
+                predictions = leaf_model.predict(img_tensor)[0]
+                max_idx = np.argmax(predictions)
+                
+                st.success(f"Diagnosis: **{RICE_CLASSES[max_idx]}**")
+                st.info(f"Confidence Level: {float(predictions[max_idx])*100:.2f}%")
+            else:
+                st.warning("Running in simulation mode.")
+                st.success("Diagnosis: **Brown Spot** (Simulation Confidence: 92.0%)")
