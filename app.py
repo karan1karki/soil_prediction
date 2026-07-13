@@ -143,48 +143,39 @@ def fetch_satellite_metrics(lat: float, lon: float):
 # -------------------------------------------------------------
 st.title("🌱 AgriSmart Nepal Unified Hub")
 
-tab1, tab2 = st.tabs(["📊 Crop Prediction Portal", "🔬 Diagnostics Center"])
 
-# Tab 1: Crop Recommendation Logic
-with tab1:
-    st.header("Geospatial Crop Analytics")
-    location_input = st.text_input("Enter Field Location Name", placeholder="e.g., Bharatpur, Nepal")
-    
-    if st.button("Analyze Location & Recommend"):
-        if location_input:
-            with st.spinner("Processing geospatial markers..."):
-                coords = get_coordinates_from_name(location_input)
-                if coords:
-                    lat, lon = coords
-                    metrics = fetch_satellite_metrics(lat, lon)
-                    
-                    st.success(f"📍 Mapped to Coordinates: {lat:.4f}, {lon:.4f}")
-                    
-                    # Display Metrics
-                    c1, c2, c3 , c4, c5, c6, c7= st.columns(7)
-                    c1.metric("Nitrogen (N)", f"{metrics['N']} mg/kg")
-                    c2.metric("Phosphorus (P)", f"{metrics['P']} mg/kg")
-                    c3.metric("Potassium (K)", f"{metrics['K']} mg/kg")
-                    c4.metric("Temperature", f"{metrics['temperature']}")
-                    c5.metric("Humidity", f"{metrics['humidity']}")
-                    c6.metric("PH_Level", f"{metrics['ph']}")
-                    c7.metric("Rainfall", f"{metrics['rainfall']}")
-                    
-                    # Make Prediction
-                    if crop_model is not None:
-                        input_vector = [[metrics['N'], metrics['P'], metrics['K'], metrics['temperature'], metrics['humidity'], metrics['ph'], metrics['rainfall']]]
-                        prediction = crop_model.predict(input_vector)[0]
-                        st.subheader(f"🥇 Recommended Crop: **{prediction.upper()}**")
-                    else:
-                        st.info("🎯 Simulation Mode Recommendation: MAIZE")
+st.header("Geospatial Crop Analytics & Computer Vision Diagnostics")
+location_input = st.text_input("Enter Field Location Name", placeholder="e.g., Bharatpur, Nepal")
+uploaded_file = st.file_uploader("Upload a rice leaf image", type=["jpg", "jpeg", "png"])
+if st.button("Analyze Location & Recommend"):
+    if location_input:
+        with st.spinner("Processing geospatial markers..."):
+            coords = get_coordinates_from_name(location_input)
+            if coords:
+                lat, lon = coords
+                metrics = fetch_satellite_metrics(lat, lon)
+                
+                st.success(f"📍 Mapped to Coordinates: {lat:.4f}, {lon:.4f}")
+                
+                # Display Metrics
+                c1, c2, c3 , c4, c5, c6, c7= st.columns(7)
+                c1.metric("Nitrogen (N)", f"{metrics['N']} mg/kg")
+                c2.metric("Phosphorus (P)", f"{metrics['P']} mg/kg")
+                c3.metric("Potassium (K)", f"{metrics['K']} mg/kg")
+                c4.metric("Temperature", f"{metrics['temperature']}")
+                c5.metric("Humidity", f"{metrics['humidity']}")
+                c6.metric("PH_Level", f"{metrics['ph']}")
+                c7.metric("Rainfall", f"{metrics['rainfall']}")
+                
+                # Make Prediction
+                if crop_model is not None:
+                    input_vector = [[metrics['N'], metrics['P'], metrics['K'], metrics['temperature'], metrics['humidity'], metrics['ph'], metrics['rainfall']]]
+                    prediction = crop_model.predict(input_vector)[0]
+                    st.subheader(f"🥇 Recommended Crop: **{prediction.upper()}**")
                 else:
-                    st.error("Location not found.")
-
-# Tab 2: Leaf Image Classification Logic
-with tab2:
-    st.header("Computer Vision Diagnostics")
-    uploaded_file = st.file_uploader("Upload a rice leaf image", type=["jpg", "jpeg", "png"])
-    
+                    st.info("🎯 Simulation Mode Recommendation: MAIZE")
+            else:
+                st.error("Location not found.")
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
         st.image(image, caption="Uploaded Leaf Profile", width=300)
